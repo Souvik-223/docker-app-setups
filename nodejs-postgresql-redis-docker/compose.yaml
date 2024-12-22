@@ -24,13 +24,13 @@ services:
         condition: service_healthy
 
   db:
-    image: mysql
+    image: postgresql
     restart: always
-    user: mysql
+    user: postgresql
     volumes:
-      - db-data:/var/lib/mysql/data
+      - db-data:/var/lib/postgresql/data
     environment:
-      - POSTGRES_DB=test_mysql
+      - POSTGRES_DB=test_postgresql
       - POSTGRES_PASSWORD=password 
     expose:
       - 5432:5432

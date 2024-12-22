@@ -1,11 +1,11 @@
+ARG NODE_VERSION=22.12.0
 
-ARG NODE_VERSION=20.12.0
+FROM node:${NODE_VERSION}-alpine
 
-FROM node:${NODE_VERSION}-alpine as base
+ENV NODE_ENV production
 
-WORKDIR /usr/app
 
-FROM base as deps
+WORKDIR /usr/src/app
 
 RUN --mount=type=bind,source=package.json,target=package.json \
     --mount=type=bind,source=package-lock.json,target=package-lock.json \
@@ -24,8 +24,6 @@ COPY . .
 RUN npm run build
 
 FROM base as final
-
-ENV NODE_ENV production
 
 USER node
 
